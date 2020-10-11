@@ -1,6 +1,3 @@
-#taken directlyy from: https://blog.datasciencedojo.com/building-a-rule-based-chatbot-in-python/
-
-# Importing modules
 import re
 from nltk.corpus import wordnet
 
@@ -11,7 +8,6 @@ for word in list_words:
     synonyms = []
     for syn in wordnet.synsets(word):
         for lem in syn.lemmas():
-            # Remove any special characters from synonym strings
             lem_name = re.sub('[^a-zA-Z0-9 \n\.]', ' ', lem.name())
             synonyms.append(lem_name)
 
