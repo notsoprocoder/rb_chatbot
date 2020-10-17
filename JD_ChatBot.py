@@ -15,7 +15,7 @@ for word in list_words:
 
     list_syn[word] = set(synonyms)
 
-print(list_syn)
+#print(list_syn)
 
 # Building dictionary of Intents & Keywords
 keywords = {}
@@ -124,7 +124,7 @@ keywords['wetherspoons'] = ['.*\\bwetherspoon\\b.*|.*\\bwetherspoons\\b.*|.*\\bs
 keywords['thewhitecross'] = ['.*\\bwhite\\b.*|.*\\bcross\\b.*']
 
 # Defining a new key in the keywords dictionary
-keywords['fun'] = []
+keywords['fun'] = ['.*\\bday\\b.*']
 
 # Populating the values in the keywords dictionary with synonyms of keywords formatted with RegEx metacharacters
 for synonym in list(list_syn['fun']):
@@ -148,31 +148,46 @@ for synonym in list(list_syn['buy']):
 for synonym in list(list_syn['shopping']):
     keywords['shop'].append('.*\\b' + synonym + '\\b.*')
 
-keywords['activity'] = ['.*\\bzoo\\b.*|.*\\baquarium\\b.*|.*\\btheme\\b.*|.*\\bpark\\b.*']
+keywords['zoo'] = ['.*\\bzoo\\b.*']
 
-# Populating the values in the keywords dictionary with synonyms of keywords formatted with RegEx metacharacters
-for synonym in list(list_syn['activity']):
-    keywords['activity'].append('.*\\b' + synonym + '\\b.*')
+keywords['aquarium'] = ['.*\\baquarium\\b.*']
+
+keywords['themepark'] = ['.*\\btheme\\b.*|.*\\bpark\\b.*']
+
+keywords['supermarket'] = ['.*\\bsupermarket\\b.*']
+
+keywords['clothes'] = ['.*\\bclothes\\b.*|.*\\bclothing\\b.*|.*\\bdress\\b.*|.*\\bpants\\b.*|.*\\bshirt\\b.*|.*\\btrousers\\b.*|.*\\bsuit\\b.*|.*\\bshoe\\b.*']
+
+keywords['electronics'] = ['.*\\btech\\b.*|.*\\belectronic\\b.*|.*\\bpc\\b.*|.*\\bcomputer\\b.*|.*\\bphone\\b.*|.*\\bplaystation\\b.*|.*\\bxbox\\b.*|.*\\bcamera\\b.*|.*\\btv\\b.*|.*\\bmonitor\\b.*']
+
+keywords['toys'] = ['.*\\btoy\\b.*']
+
+keywords['mens'] = ['.*\\bmen\\b.*']
+
+keywords['womens'] = ['.*\\bwomen\\b.*']
+
+keywords['childrens'] = ['.*\\bchildren\\b.*|.*\\bkid\\b.*|.*\\bboy\\b.*|.*\\bgirl\\b.*|.*\\bbaby\\b.*']
+
 
 
 for intent, keys in keywords.items():
     # Joining the values in the keywords dictionary with the OR (|) operator updating them in keywords_dict dictionary
     keywords_dict[intent] =re.compile('|'.join(keys))
-print(keywords_dict)
+#print(keywords_dict)
 
 # Building a dictionary of responses
 responses={
-    'greet':'Hello! How can I help you?',
-    'how':'I\'m very well thank you, how are you?',
-    'good':'I\'m happy to hear that, how can I help you?',
-    'bad':'I\'m sorry to hear that I hope you feel better soon, how can I help?',
-    'timings':'We are open from 9AM to 5PM, Monday to Friday. We are closed on weekends and public holidays.',
-    'fallback':'I dont quite understand. Could you repeat that?',
-    'food':'We have a number of great local resaurants. what kind of food are you looking for? Italian, Indian, Chinese, Thai, Pub Grub',
-    'drink':'We have a number of great local pubs and coffee shops. which are you looking for? Pub or Coffee',
-    'pub':'Here are a few recommendations which would you like to hear more about? \nPenny Bank\nThe Water Witch\nThe Sun Hotel',
-    'coffee':'Here are a few recommendations which would you like to hear more about? \nDiggles\nCosta Coffee\nStarbucks',
-    'italian':'Here are a few recommendations which would you like to hear more about? \nPizza Margherita\nMarcos\nEtna',
+    'greet':'\nHello! How can I help you?',
+    'how':'\nI\'m very well thank you, how are you?',
+    'good':'\nI\'m happy to hear that, how can I help you?',
+    'bad':'\nI\'m sorry to hear that I hope you feel better soon, how can I help?',
+    'timings':'\nWe are open from 9AM to 5PM, Monday to Friday. We are closed on weekends and public holidays.',
+    'fallback':'\nI dont quite understand. Could you repeat that?',
+    'food':'\nWe have a number of great local resaurants. what kind of food are you looking for? Italian, Indian, Chinese, Thai, Pub Grub',
+    'drink':'\nWe have a number of great local pubs and coffee shops. which are you looking for? Pub or Coffee',
+    'pub':'\nHere are a few recommendations which would you like to hear more about? \nPenny Bank\nThe Water Witch\nThe Sun Hotel',
+    'coffee':'\nHere are a few recommendations which would you like to hear more about? \nDiggles\nCosta Coffee\nStarbucks',
+    'italian':'\nHere are a few recommendations which would you like to hear more about? \nPizza Margherita\nMarcos\nEtna',
     'pizzamargherita':'\nPizza Margherita\n'
     '\nOur Story\n'
     '\nLANCASTER\'S FAVOURITE PIZZA\n'
@@ -195,7 +210,7 @@ responses={
     '\nhttps://www.facebook.com/pages/Etna/150626014970606\n'
     '\n01524 69551\n'
     '\n22 New Street, Lancaster, LA1 1EG\n',
-    'indian':'Here are a few recommendations which would you like to hear more about? \nBombay Balti\nMasala\nBabar Elephant',
+    'indian':'\nHere are a few recommendations which would you like to hear more about? \nBombay Balti\nMasala\nBabar Elephant',
     'bombaybalti':'\nBombay Balti\n'
     '\nA local favourite, great quality and value.\n'
     '\nOpen daily 5pm-11pm\n'
@@ -219,7 +234,7 @@ responses={
     '\nhttps://www.babarelephant.co.uk/contacts\n'
     '\n01524 388670\n'
     '\nMorecambe Road Lancaster LA1 5JB\n',
-    'chinese':'Here are a few recommendations which would you like to hear more about? \nThe Honey Tree\nFortune Star\nGolden Dragon',
+    'chinese':'\nHere are a few recommendations which would you like to hear more about? \nThe Honey Tree\nFortune Star\nGolden Dragon',
     'thehoneytree':'\nThe Honey Tree\n'
     '\nThe Honey Tree serves delicious Chinese cuisine overlooking the bay on the central promenade of Morecambe, just a few moments from the town centre.\n'
     'Our modern oriental menus offer tempting choices for all the family with a flair for wholesome and expertly prepared dishes.\n' 
@@ -251,7 +266,7 @@ responses={
     '\nOpen daily 5:00pm-12am\n'
     '\n01524 33100\n'
     '\n11 George St, Lancaster LA1 1XQ\n',
-    'thai':'Here are a few recommendations which would you like to hear more about? \nBlack Stone Grill & Thai\nAraya Thai',
+    'thai':'\nHere are a few recommendations which would you like to hear more about? \nBlack Stone Grill & Thai\nAraya Thai',
     'blackstonegrill&thai':'\nBlack Stone Grill & Thai\n'
     '\nWe have formally owned Bay Steakhouse and Thai Rose and we have now brought both of our unique restaurants together as one so you can enjoy the experience of both together.\n'
     'The Black Stone Grill and Thai is a new venture from Thai Rose and Bay Steakhouse offering a unique experience to Morecambe diners where they can have the choice of mouthwatering steaks or authentic Thai dishes.\n'
@@ -278,7 +293,7 @@ responses={
     'Saturday	12–3pm, 5–10pm\n'
     '\n01524 383889\n'
     '\n6 Chapel St, Lancaster LA1 1NZ\n',
-    'pubgrub':'Here are a few recommendations which would you like to hear more about? \nWetherspoons\nThe White Cross\nThe Sun Hotel',
+    'pubgrub':'\nHere are a few recommendations which would you like to hear more about? \nWetherspoons\nThe White Cross\nThe Sun Hotel',
     'wetherspoons':'\nWetherspoons (The Sir Richard Owen)\n'
     '\nYour usual wetherspoons. Great prices and good quality one of the safe choices when eating out in a new area\n'
     '\nSunday	8am–11pm\n'
@@ -362,7 +377,66 @@ responses={
     '\nOpen daily 8am-6:30pm\n'
     '\nhttps://www.starbucks.co.uk/\n'
     '\n01524 382261\n'
-    '\n19 Market St, St Nicholas Arcades, Lancaster LA1 1HZ\n'
+    '\n19 Market St, St Nicholas Arcades, Lancaster LA1 1HZ\n',
+    'fun':'\nI can suggest a number of activities are you interested in any of the following?\n'
+    '\nZoo\nAquarium\nPark\nTheme Park',    
+    'zoo':'\nWhile Lancaster doesn\'t have a zoo there is one in Blackpool\n'
+    '\nBlackpool Zoo\n'
+    '\nThe Zoo has various animals including Tigers, Elephants, Lions, Gorillas and Giraffes\n'
+    '\nTickets are £19.95 for adults and £15.50 for children 3-15\n'
+    '\nOpen daily 10am-4.45pm\n'
+    '\nhttps://www.blackpoolzoo.org.uk/\n'
+    '\n01253 830830\n'
+    '\nE Park Dr, Blackpool FY3 8PP\n',
+    'aquarium':'\nWhile Lancaster doesn\'t have an Aquarium there is one in Blackpool\n'
+    '\nSEA LIFE Blackpool\n'
+    '\nSEA LIFE Centre has a wide variety of Fish, Turtles, Stingrays etc\n'
+    '\nTickets are £19.50 for adults and £16.50 for children 3-14\n'
+    '\nSaturday, 10am–6pm\n'
+    'Sunday, 10am–5pm\n'
+    'Monday, 10am–4pm\n'
+    'Tuesday, 10am–4pm\n'
+    'Wednesday, 10am–4pm\n'
+    'Thursday, 10am–4pm\n'
+    'Friday, 10am–4pm\n'
+    '\nhttp://www.sealife.co.uk/blackpool\n'
+    '\n01253 375187\n'
+    '\nSEA LIFE Blackpool, Promenade, Blackpool, Lancashire, FY1 5AA\n',
+    'themepark':'\nWhile Lancaster doesn\'t have a Theme Park but there is one in Blackpool\n'
+    '\nBlackpool Pleasure Beach\n'
+    '\nEnjoy a fun day out at the UK\'s most ride intensive theme park. Home to the legendary Big One & Valhalla. Iconic theme park rides for a fun family day out.\n'
+    '\nTickets are £39 for adults and £33 for children under 12\n'
+    '\nWeekdays 11am-5pm\n'
+    'Weekends, 10am–6pm\n'    
+    '\nhttps://www.blackpoolpleasurebeach.com/\n'
+    '\n0871 222 1234\n'
+    '\n525 Ocean Boulevard, Blackpool, Lancashire, FY4 1EZ\n',
+    'shop':'\nWe have a number of shops in Lancaster what sort of shops are you looking for?\n'
+    'supermarket\n'
+    'clothes\n'
+    'electronics\n'
+    'toys\n',
+    'supermarket':'\nThe are a few supermarkets in Lancaster City Centre\n'
+    'Marks & Spencer\n'
+    'Sainsburys\n'
+    'Tesco\n',
+    'clothes':'\nThe are a few clothing shops in Lancaster City Centre. What are you looking for?\n'
+    'mens\n'
+    'womens\n'
+    'childrens\n',
+    'mens':'\nTopman\nNew Look\nDr Kruger\nRiver Island\nLapel Menswear\nPrimark\nNext',
+    'womens':'\nRiver Island\nNew Look\nTopshop\nPrimark\nRoom 12\nNext',
+    'childrens':'\nPrimark\nNext\nNew Look',
+    'electronics':'\nThe are a few electronic stores in Lancaster City Centre. My suggestions are?\n'
+    'Currys PC World\n'
+    'CeX\n'
+    'Argos\n',
+    'toys':'\nThe are a few toys stores in Lancaster City Centre. My suggestions are?\n'
+    'The Entertainer\n'
+    'The Works\n'
+    'Argos\n'
+    
+    
 }
 print("Welcome to TourGuide. How may I help you?")
 
